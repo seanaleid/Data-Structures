@@ -28,6 +28,7 @@ class Stack:
     def pop(self):
         if len(self.storage) == 0:
             print("Sorry, nothing here!")
+            return 
         else:
             popped = self.storage.pop(self.size - 1)
             self.size = self.size - 1
@@ -53,4 +54,3 @@ class Stack:
 #             return value
 #         else: 
 #             return None
-
