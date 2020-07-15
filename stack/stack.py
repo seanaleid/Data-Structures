@@ -1,3 +1,5 @@
+from singly_linked_list import Node, LinkedList
+
 """
 A stack is a data structure whose primary purpose is to store and
 return elements in Last In First Out order. 
@@ -10,8 +12,9 @@ return elements in Last In First Out order.
 3. What is the difference between using an array vs. a linked list when 
    implementing a Stack?
 """
+
 class Stack:
-    def __init__(self):
+    def __init__(self, ):
         self.size = 0
         self.storage = []
 
@@ -29,4 +32,25 @@ class Stack:
             popped = self.storage.pop(self.size - 1)
             self.size = self.size - 1
             return popped
+
+# class Stack:
+#     def __init__(self):
+#         self.size = 0
+#         self.storage = LinkedList()
+
+#     def __len__(self):
+#         return self.storage.length()
+
+#     def push(self, value):
+#         self.storage.add_to_tail(value)
+#         self.size = self.size + 1
+
+#     def pop(self):
+#         if self.size > 0:
+#             value = self.storage.tail.get_value()
+#             self.storage.remove_tail()
+#             self.size = self.size - 1
+#             return value
+#         else: 
+#             return None
 
