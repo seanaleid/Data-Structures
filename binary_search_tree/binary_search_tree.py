@@ -1,3 +1,4 @@
+
 """
 Binary search trees are a data structure that enforce an ordering over 
 the data they store. That ordering in turn makes it a lot more efficient 
@@ -9,6 +10,48 @@ This part of the project comprises two days:
 2. Implement the `in_order_print`, `bft_print`, and `dft_print` methods
    on the BSTNode class.
 """
+class Queue:
+    def __init__(self):
+        self.size = 0
+        self.storage = []
+    
+    def __len__(self):
+        return self.size
+
+    def enqueue(self, value):
+        add_value = self.storage.append(value)
+        self.size = self.size + 1
+        return add_value
+
+    def dequeue(self):
+        if self.size > 0:
+            remove_value = self.storage.pop(0)
+            self.size = self.size - 1
+            return remove_value
+        else:
+            print("Nothing here")
+
+class Stack:
+    def __init__(self, ):
+        self.size = 0
+        self.storage = []
+
+    def __len__(self):
+        return len(self.storage)
+
+    def push(self, value):
+        self.size = self.size + 1
+        return self.storage.append(value)
+
+    def pop(self):
+        if len(self.storage) == 0:
+            print("Sorry, nothing here!")
+            return 
+        else:
+            popped = self.storage.pop(self.size - 1)
+            self.size = self.size - 1
+            return popped
+
 class BSTNode:
     def __init__(self, value):
         self.value = value
@@ -136,7 +179,7 @@ class BSTNode:
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
-    def in_order_print(self):
+    def in_order_print(self, node):
         # if the current node is None
         # we know we've reached the end of a recursion
         # (base case) we want to return
@@ -145,44 +188,62 @@ class BSTNode:
 
         # check if we can move left
         # if self.left is not None:
-        if self.left:
-            self.left.in_order_print()
+        if self.left is not None:
+            self.left.in_order_print(self.left)
 
-        # visit the node by printing its value
+        # visit the self by printing its value
         print(self.value)
 
         # check if we can move right
-        if self.right:
-            self.right.in_order_print()
+        if self.right is not None:
+            self.right.in_order_print(self.right)
+        
 
         
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
-        # FIFO - first in first out (line image)
+        """FIFO - first in first out (line image)"""
         # use a queue to form a "line"
+        queue = Queue()
         # for the nodes to "get in"
 
         # start by placing the root in the queue
+        queue.enqueue(node)
         
         # need a while loop to iterate
         # while length of queue is greater than 0
-            # dequeue item form front of queue
+        while queue.__len__() > 0:
+            val = queue.storage[0]
+            if val.left is not None:
+                # place current item's left node in queue if not None
+                queue.enqueue(val.left)
+            if val.right is not None:
+                # place current item's right node in queue if not None
+                queue.enqueue(val.right)
             # print that item
-
-            # place current item's left node in queue if not None
-            # place current item's right node in queue if not None
+            queue.dequeue()
+            print(val.value)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
         # initialize an empty stack
+        stack = Stack()
         # push the root node onto the stack
+        if node is not None:
+            stack.push(node)
 
         # need a while loop to manage our iteration
-        # if stack is not emptystart the while loop
+        # if stack is not empty start the while loop
+        while stack.__len__() > 0:
+            val = stack.storage[-1]
+            stack.pop()
+            if val.right is not None:
+                stack.push(val.right)
+            if val.left is not None:
+                stack.push(val.left)
+            print(val.value)
             # pop top item off the stack
             # print that item's value
 
@@ -192,15 +253,45 @@ class BSTNode:
             # if there is a right subtree
                 # push right item onto the stack
                 # prints the last one first LIFO - last in first out (pringles can image)
-
+    def __str__(self):
+        return f"\n {self.value}, {self.left}, {self.right}"
 
     # Stretch Goals -------------------------
     # Note: Research may be required
 
     # Print Pre-order recursive DFT
-    # def pre_order_dft(self, node):
-    #     pass
+    def pre_order_dft(self, node):
+        """ ROOT --> LEFT --> RIGHT """
+        if self is None:
+            return 
+        
+        print(self.value)
+
+        if self.left is not None:
+            self.left.pre_order_dft(node)
+
+        if self.right is not None:
+            self.right.pre_order_dft(node)
 
     # Print Post-order recursive DFT
-    # def post_order_dft(self, node):
-    #     pass
+    def post_order_dft(self, node):
+        """ LEFT --> RIGHT --> ROOT"""
+
+        if self is None:
+            return 
+        
+        if self.left is not None:
+            self.left.post_order_dft(node)
+
+        if self.right is not None:
+            self.right.post_order_dft(node)
+        
+        print(self.value)
+
+# test = BSTNode(1)
+# test.insert(5)
+# test.insert(2)
+# test.insert(3)
+# test.insert(7)
+# test.insert(6)
+# print(test)
