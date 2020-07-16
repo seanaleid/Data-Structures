@@ -61,9 +61,28 @@ class BSTNode:
         # check is self.right is None
         # if self.right is None, return self.value
         # else self.right.get_max(self)
+
+        if not self:
+            return None
+
+        """ recursive """
         if self.right:
             return self.right.get_max()
         return self.value
+
+        """ iterative """
+        # initialize max_value variable; this will be updated as we traverse the tree
+        # max_value = self.value
+        #get a reference to the node we're currently at; update this value
+        # current = self
+        # check to see if we're still at a valid tree node
+        # while current:
+            # if current value is greater than max_value, update the max_value
+            # if current.value > max_value:
+            #     max_value = current.value
+            # move on to the next right node in the tree
+        #     current = current.right
+        # return max_value
 
         # if self.value == None:
         #     return self.value
@@ -89,20 +108,91 @@ class BSTNode:
 
     # Part 2 -----------------------
 
+    # """preorder"""
+    # visit logic
+    # print(self.value)
+    #recurse left
+    # self.left.fn()
+    #recurse right
+    # self.right.fn()
+
+    # """inorder"""
+    # visit logic
+    #recurse left
+    # self.left.fn()
+    # visit logic
+    # print(self.value)
+    #recurse right
+    # self.right.fn()
+
+    # """postorder"""
+    # visit logic
+    #recurse left
+    # self.left.fn()
+    #recurse right
+    # self.right.fn()
+    # visit logic
+    # print(self.value)
+
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
-    # - def in_order_print(self, node):
-    #     pass
+    def in_order_print(self):
+        # if the current node is None
+        # we know we've reached the end of a recursion
+        # (base case) we want to return
+        if self is None:
+            return 
 
+        # check if we can move left
+        # if self.left is not None:
+        if self.left:
+            self.left.in_order_print()
+
+        # visit the node by printing its value
+        print(self.value)
+
+        # check if we can move right
+        if self.right:
+            self.right.in_order_print()
+
+        
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
-    # - def bft_print(self, node):
-    #     pass
+    def bft_print(self, node):
+        pass
+        # FIFO - first in first out (line image)
+        # use a queue to form a "line"
+        # for the nodes to "get in"
+
+        # start by placing the root in the queue
+        
+        # need a while loop to iterate
+        # while length of queue is greater than 0
+            # dequeue item form front of queue
+            # print that item
+
+            # place current item's left node in queue if not None
+            # place current item's right node in queue if not None
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
-    # - def dft_print(self, node):
-    #     pass
+    def dft_print(self, node):
+        pass
+        # initialize an empty stack
+        # push the root node onto the stack
+
+        # need a while loop to manage our iteration
+        # if stack is not emptystart the while loop
+            # pop top item off the stack
+            # print that item's value
+
+            # if there is a left subtree
+                # push left item onto the stack
+
+            # if there is a right subtree
+                # push right item onto the stack
+                # prints the last one first LIFO - last in first out (pringles can image)
+
 
     # Stretch Goals -------------------------
     # Note: Research may be required
